@@ -1,0 +1,169 @@
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: #1e293b;
+
+    background:
+        radial-gradient(circle at 15% 20%, #344b65 0%, transparent 35%),
+        radial-gradient(circle at 85% 80%, #35451d 0%, transparent 35%),
+        #111827;
+}
+
+/* Login Card */
+#loginform {
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+
+    padding: 40px;
+
+    background: rgba(255, 255, 255, 0.97);
+
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+}
+
+/* Form Labels */
+#loginform label {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+
+    margin-bottom: 22px;
+
+    color: #334155;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* Input Fields */
+#email,
+#password {
+    width: 100%;
+    padding: 14px 15px;
+
+    background: #f1f5f9;
+
+    border: 1px solid #dbe2ea;
+    border-radius: 10px;
+
+    color: #0f172a;
+    font-size: 14px;
+
+    outline: none;
+
+    transition: all 0.25s ease;
+}
+
+#email:hover,
+#password:hover {
+    border-color: #a3b18a;
+}
+
+#email:focus,
+#password:focus {
+    background: #ffffff;
+
+    border-color: #718b16;
+
+    box-shadow: 0 0 0 4px rgba(113, 139, 22, 0.13);
+}
+
+/* Login Button */
+#submitted {
+    width: 100%;
+    padding: 14px;
+
+    margin-top: 8px;
+
+    background: linear-gradient(135deg, #718b16, #536900);
+
+    color: #ffffff;
+
+    border: none;
+    border-radius: 10px;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: all 0.25s ease;
+}
+
+#submitted:hover {
+    background: linear-gradient(135deg, #829f19, #617a08);
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 8px 20px rgba(83, 105, 0, 0.25);
+}
+
+#submitted:active {
+    transform: translateY(0);
+}
+
+/* Error / Success Message */
+#message {
+    width: 400px;
+
+    margin-top: 18px;
+
+    text-align: center;
+
+    color: #fca5a5;
+    font-size: 14px;
+}
+
+#message a {
+    color: #c5df70;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+#message a:hover {
+    text-decoration: underline;
+}
+
+/* Forgot Password */
+#forget {
+    margin-top: 12px;
+    text-align: right;
+}
+
+#forget a {
+    color: #64748b;
+    font-size: 13px;
+    text-decoration: none;
+}
+
+#forget a:hover {
+    color: #718b16;
+}
+
+/* Responsive Design */
+@media (max-width: 500px) {
+    #loginform,
+    #message,
+    #forget {
+        width: calc(100% - 35px);
+    }
+
+    #loginform {
+        padding: 28px;
+    }
+}
