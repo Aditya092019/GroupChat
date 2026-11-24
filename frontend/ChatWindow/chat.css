@@ -1,0 +1,147 @@
+:root {
+    --bg: #dde5e8;
+    --panel: #f6f8f9;
+    --ink: #17262b;
+    --muted: #6b7c83;
+    --mine: #1f5f54;
+    --mine-ink: #f2fbf8;
+    --theirs: #ffffff;
+    --accent: #1f5f54;
+    --line: #cfd9dd;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1a1d;
+      --panel: #162327;
+      --ink: #e6eef0;
+      --muted: #8aa0a7;
+      --mine: #2b7a6b;
+      --mine-ink: #f2fbf8;
+      --theirs: #223338;
+      --accent: #3fae98;
+      --line: #2a3d43;
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font: 15px/1.4 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    display: flex;
+    justify-content: center;
+  }
+  .chat {
+    position: relative;
+    width: 100%;
+    max-width: 720px;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    background: var(--panel);
+    border-left: 1px solid var(--line);
+    border-right: 1px solid var(--line);
+  }
+  .chat-header {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 16px;
+    background: var(--mine); color: var(--mine-ink);
+  }
+  .avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    display: grid; place-items: center;
+    font-weight: 700; font-size: 14px;
+    background: rgba(255,255,255,.18);
+  }
+  .chat-header h1 { margin: 0; font-size: 17px; font-weight: 650; }
+  .chat-header p { margin: 0; font-size: 12.5px; opacity: .8; }
+  
+  .messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px 14px 8px;
+    display: flex; flex-direction: column; gap: 2px;
+    overscroll-behavior: contain;
+    scroll-behavior: smooth;
+  }
+  .loader { text-align: center; color: var(--muted); font-size: 12.5px; padding: 6px; }
+  
+  .day {
+    align-self: center;
+    margin: 14px 0 8px;
+    padding: 3px 12px;
+    border-radius: 999px;
+    background: var(--line);
+    color: var(--muted);
+    font-size: 12px;
+  }
+  .msg {
+    max-width: 78%;
+    padding: 7px 10px 5px;
+    border-radius: 12px;
+    background: var(--theirs);
+    box-shadow: 0 1px 1px rgba(0,0,0,.08);
+    word-wrap: break-word;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+    align-self: flex-start;
+    margin-top: 6px;
+  }
+  .msg.same { margin-top: 0; }
+  .msg.theirs:not(.same) { border-top-left-radius: 3px; }
+  .msg.mine {
+    align-self: flex-end;
+    background: var(--mine); color: var(--mine-ink);
+  }
+  .msg.mine:not(.same) { border-top-right-radius: 3px; }
+  .sender { font-size: 12.5px; font-weight: 650; margin-bottom: 1px; }
+  .text { display: inline; }
+  .time {
+    float: right;
+    margin: 6px 0 0 12px;
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .msg.mine .time { color: rgba(242,251,248,.75); }
+  .msg::after { content: ""; display: block; clear: both; }
+  
+  .jump {
+    position: absolute; right: 18px; bottom: 76px;
+    border: 0; border-radius: 999px;
+    padding: 8px 14px;
+    background: var(--accent); color: #fff;
+    font: inherit; font-size: 13px; font-weight: 600;
+    box-shadow: 0 2px 8px rgba(0,0,0,.25);
+    cursor: pointer;
+  }
+  .composer {
+    display: flex; align-items: flex-end; gap: 8px;
+    padding: 10px 12px;
+    background: var(--panel);
+    border-top: 1px solid var(--line);
+  }
+  .composer textarea {
+    flex: 1;
+    resize: none;
+    max-height: 140px;
+    padding: 10px 14px;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    background: var(--theirs); color: var(--ink);
+    font: inherit;
+    outline: none;
+  }
+  .composer textarea:focus { border-color: var(--accent); }
+  .send {
+    width: 42px; height: 42px; flex: none;
+    border: 0; border-radius: 50%;
+    display: grid; place-items: center;
+    background: var(--accent); color: #fff;
+    cursor: pointer;
+  }
+  .send:disabled { opacity: .45; cursor: default; }
+  .send:focus-visible, .jump:focus-visible, .composer textarea:focus-visible {
+    outline: 2px solid var(--accent); outline-offset: 2px;
+  }
+  @media (prefers-reduced-motion: reduce) { .messages { scroll-behavior: auto; } }
+  @media (max-width: 720px) { .chat { border: 0; } .msg { max-width: 86%; } }

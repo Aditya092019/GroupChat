@@ -35,15 +35,15 @@ form.addEventListener("submit", async (event) => {
 
         localStorage.setItem("token", data.jwtToken);
 
-        // Store user information if needed
+
         localStorage.setItem("user", JSON.stringify(data.user));
 
-        // form.reset();
+        form.reset();
 
         alert("Login successfully");
 
-        // Redirect after login
-        // window.location.href = "../expense/expense.html";
+
+        window.location.href = "../ChatWindow/chat.html";
 
     } catch (error) {
         console.error("Error:", error);

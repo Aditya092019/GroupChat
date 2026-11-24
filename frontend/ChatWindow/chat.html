@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Group Chat</title>
+  <link rel="stylesheet" href="chat.css" />
+</head>
+<body>
+  <main class="chat" aria-label="Group chat">
+    <header class="chat-header">
+      <div class="avatar" aria-hidden="true">GC</div>
+      <div class="chat-header-text">
+        <h1>Group Chat</h1>
+        <p id="members">Aditya, Riya, Kabir, Meera</p>
+      </div>
+    </header>
+
+    <section id="messages" class="messages" aria-live="polite" tabindex="0">
+      <div id="loader" class="loader" hidden>Loading older messages…</div>
+    </section>
+
+    <button id="jump" class="jump" hidden aria-label="Jump to latest messages">
+      <span id="jump-count">0</span> new
+    </button>
+
+    <footer class="composer">
+      <textarea id="input" rows="1" placeholder="Type a message" aria-label="Message"></textarea>
+      <button id="send" class="send" aria-label="Send message" disabled>
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M3 20.5v-6.8l9-1.7-9-1.7V3.5L22 12 3 20.5z"/></svg>
+      </button>
+    </footer>
+  </main>
+  <script src="chat.js"></script>
+</body>
+</html>
