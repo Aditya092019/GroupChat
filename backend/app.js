@@ -1,4 +1,6 @@
 const express = require('express');
+const http = require('http');
+const { Server } = require('socket.io');
 const app = express();
 const cors = require('cors');
 const db = require("./utils/db-connection");
@@ -13,6 +15,16 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/", router);
 
 
+const server = http.createServer(app);
+const io = new Server(server, { cors: { origin: '*' } });
+app.set('io', io);
+
+io.on('connection', (socket) => {
+    console.log('Socket connected:', socket.id);
+    socket.on('disconnect', () => console.log('Socket disconnected:', socket.id));
+});
+
+
 Users.hasMany(Message);
 Message.belongsTo(Users);
 
@@ -25,6 +37,6 @@ db.authenticate()
         console.log("Database connection failed:", error);
     });
 
-app.listen(PORT,()=>{
+server.listen(PORT,()=>{
     console.log(`Server started at port ${PORT}`);
 })

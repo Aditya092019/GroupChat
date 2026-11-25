@@ -11,16 +11,17 @@ exports.sendMessage = async (req, res) => {
 
     const saved = await Message.create({ message: text, UserId: req.user.id });
 
-    res.status(201).json({
-      success: true,
-      data: {
-        id: saved.id,
-        userId: req.user.id,
-        name: req.user.name,
-        text: saved.message,
-        createdAt: saved.createdAt,
-      },
-    });
+    const data = {
+      id: saved.id,
+      userId: req.user.id,
+      name: req.user.name,
+      text: saved.message,
+      createdAt: saved.createdAt,
+    };
+
+    req.app.get('io').emit('newMessage', data);   // sends to all connected clients
+
+    res.status(201).json({ success: true, data });
   } catch (err) {
     console.error(err);
     res.status(500).json({ success: false, message: 'Could not save message' });

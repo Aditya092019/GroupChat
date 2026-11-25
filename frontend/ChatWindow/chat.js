@@ -84,6 +84,7 @@ function buildMessage(m, prev) {
 }
 
 function appendMessage(m) {
+  if (messages.some(x => x.id === m.id)) return;
   const wasNearBottom = isNearBottom();
   const mine = m.userId === currentUser.id;
   const prev = messages[messages.length - 1];
@@ -218,5 +219,10 @@ async function init() {
   }
   scrollToBottom(false);
   autoGrow();
+  const socket = io(API_URL);
+  socket.on('connect', () => console.log('Connected to server:', socket.id));
+  socket.on('disconnect', () => console.log('Disconnected from server'));
+  socket.on('connect_error', (err) => console.log('Socket error:', err.message));
+  socket.on('newMessage', (msg) => appendMessage(msg));
 }
 init().catch(err => alert('Could not load chat: ' + err.message));
