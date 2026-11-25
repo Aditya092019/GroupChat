@@ -198,7 +198,7 @@ async function postMessage(text) {
 }
 
 async function fetchOlderMessages(oldest) {
-  return [];                                 // pagination comes later; all messages load at start
+  return [];                               
 }
 
 
@@ -219,7 +219,7 @@ async function init() {
   }
   scrollToBottom(false);
   autoGrow();
-  const socket = io(API_URL);
+  const socket = io(API_URL, { auth: { token: getToken() } });
   socket.on('connect', () => console.log('Connected to server:', socket.id));
   socket.on('disconnect', () => console.log('Disconnected from server'));
   socket.on('connect_error', (err) => console.log('Socket error:', err.message));
