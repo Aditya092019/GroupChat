@@ -202,6 +202,22 @@ async function fetchOlderMessages(oldest) {
 }
 
 
+const getRoomId = (a, b) =>
+  [a.trim().toLowerCase(), b.trim().toLowerCase()].sort().join('_');
+
+joinBtn.addEventListener('click', () => {
+  const otherEmail = searchEmailEl.value.trim();
+  const myEmail = currentUser.email || localStorage.getItem('email');
+  if (!otherEmail || !myEmail) return alert('Enter an email to chat with');
+  const roomId = getRoomId(myEmail, otherEmail);
+  if (roomId === currentRoomId) return;
+  if (currentRoomId) socket.emit('leave_room', currentRoomId);
+  currentRoomId = roomId;
+  socket.emit('join_room', roomId);
+  resetView(); 
+});
+
+
 async function init() {
   if (!getToken()) { window.location.href = LOGIN_PAGE; return; }
 
@@ -223,6 +239,7 @@ async function init() {
   socket.on('connect', () => console.log('Connected to server:', socket.id));
   socket.on('disconnect', () => console.log('Disconnected from server'));
   socket.on('connect_error', (err) => console.log('Socket error:', err.message));
-  socket.on('newMessage', (msg) => appendMessage(msg));
+  socket.on('new_message', (msg) => { if (msg.roomId === currentRoomId) appendMessage(msg); });
+  socket.on('newMessage', (msg) => { if (!currentRoomId) appendMessage(msg); });
 }
 init().catch(err => alert('Could not load chat: ' + err.message));
